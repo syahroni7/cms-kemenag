@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Backend\PostController;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Frontend\HomeController;
+
 
 // Roles Permission
 Route::prefix('admin')
@@ -16,8 +17,15 @@ Route::prefix('admin')
             ->middleware('role:Administrator');
     });
 
-    // Publik
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// Publik
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/', 'index')->name('home');
+});
+
 Route::get('/berita/{slug}', [PostController::class, 'show'])->name('berita.show');
 Route::get('/kategori/{slug}', [CategoryController::class, 'show'])->name('kategori.show');
+
+// Dashboard Admin
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('admin.dashboard');
 
