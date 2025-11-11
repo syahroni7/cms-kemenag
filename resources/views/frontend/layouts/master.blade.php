@@ -6,28 +6,11 @@
 
 
     <title>@yield('title')</title>
-    <!-- Meta Dasar -->
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>SIPINTU | PTSP Kemenag Lebak</title>
-    <meta name="description" content="SIPINTU adalah Sistem Pelayanan Terpadu Satu Pintu Kementerian Agama Kabupaten Lebak. Ajukan layanan secara mudah, transparan, dan akuntabel.">
-    <meta name="keywords" content="SIPINTU, PTSP Kemenag, Kementerian Agama Lebak, pelayanan publik, layanan online, Kemenag Lebak, sistem terpadu, pelayanan agama, Lebak">
-    <meta name="author" content="Kementerian Agama Kabupaten Lebak">
-
-    <!-- Meta Sosial (Open Graph untuk Facebook, WhatsApp, LinkedIn) -->
-    <meta property="og:title" content="SIPINTU | PTSP Kemenag Lebak">
-    <meta property="og:description" content="Ajukan layanan secara mudah, transparan, dan akuntabel melalui Sistem Pelayanan Terpadu Satu Pintu Kemenag Lebak.">
-    <meta property="og:image" content="https://example.com/assets/img/og-image.jpg"> <!-- Ganti URL dengan gambar share -->
-    <meta property="og:url" content="https://ptspkemenaglebak.my.id"> <!-- Ganti dengan URL asli -->
-    <meta property="og:type" content="website">
-
-    <!-- Meta Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SIPINTU | PTSP Kemenag Lebak">
-    <meta name="twitter:description" content="Layanan publik digital Kemenag Lebak berbasis transparansi dan kemudahan akses.">
-    <meta name="twitter:image" content="https://example.com/assets/img/og-image.jpg"> <!-- Ganti dengan gambar valid -->
-
-    <!-- Robots -->
+    <meta name="description" content="{{ $meta_description ?? 'Portal resmi Kemenag Lebak menyediakan layanan haji, umrah, pendidikan, dan keagamaan.' }}">
+    <meta name="keywords" content="{{ $meta_keywords ?? 'kemenag lebak, haji lebak, umrah lebak, layanan keagamaan' }}">
+    <meta property="og:title" content="{{ $meta_title ?? 'Kemenag Lebak' }}">
+    <meta property="og:description" content="{{ $meta_description ?? 'Website resmi Kemenag Lebak' }}">
+    <meta property="og:image" content="{{ $meta_image ?? asset('assets/img/logo-kemenag.png') }}">
     <meta name="robots" content="index, follow">
 
     <!-- Favicons -->
@@ -45,6 +28,7 @@
     @include('frontend.layouts.styles')
 
     @yield('_styles')
+    
 
 </head>
 

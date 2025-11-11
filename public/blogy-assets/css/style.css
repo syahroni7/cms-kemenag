@@ -14,29 +14,41 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Nunito",  sans-serif;
-  --nav-font: "Poppins",  sans-serif;
+  --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Nunito", sans-serif;
+  --nav-font: "Poppins", sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
-:root { 
-  --background-color: #ffffff; /* Background color for the entire website, including individual sections */
-  --default-color: #212529; /* Default color used for the majority of the text content across the entire website */
-  --heading-color: #2d465e; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #2986cc; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
-  --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
-  --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+:root {
+  --background-color: #ffffff;
+  /* Background color for the entire website, including individual sections */
+  --default-color: #212529;
+  /* Default color used for the majority of the text content across the entire website */
+  --heading-color: #2d465e;
+  /* Color for headings, subheadings and title throughout the website */
+  --accent-color: #2986cc;
+  /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --surface-color: #ffffff;
+  /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+  --contrast-color: #ffffff;
+  /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
-  --nav-color: #000000;  /* The default color of the main navmenu links */
-  --nav-hover-color: #2986cc; /* Applied to main navmenu links when they are hovered over or active */
-  --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
-  --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
-  --nav-dropdown-color: #212529; /* Used for navigation links of the dropdown items in the navigation menu. */
-  --nav-dropdown-hover-color: #2986cc; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+  --nav-color: #000000;
+  /* The default color of the main navmenu links */
+  --nav-hover-color: #2986cc;
+  /* Applied to main navmenu links when they are hovered over or active */
+  --nav-mobile-background-color: #ffffff;
+  /* Used as the background color for mobile navigation menu */
+  --nav-dropdown-background-color: #ffffff;
+  /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
+  --nav-dropdown-color: #212529;
+  /* Used for navigation links of the dropdown items in the navigation menu. */
+  --nav-dropdown-hover-color: #2986cc;
+  /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
 }
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
@@ -233,28 +245,69 @@ h6 {
   padding-bottom: 10px;
 }
 
+/* ===========================
+   Penyesuaian Logo Header Blogy
+   =========================== */
+
 .header .top-row .logo {
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* jarak antara logo dan teks */
 }
 
+/* Ubah ukuran logo agar lebih besar dan proporsional */
 .header .top-row .logo img {
-  max-height: 40px;
+  max-height: 70px;
+  /* sebelumnya 40px */
+  width: auto;
   margin-right: 10px;
+  transition: all 0.3s ease;
 }
 
+.header .top-row .logo img:hover {
+  transform: scale(1.05);
+}
+
+/* Nama situs di samping logo */
 .header .top-row .logo .sitename {
-  font-size: 32px;
-  font-weight: 400;
+  font-size: 36px;
+  /* sebelumnya 32px */
+  font-weight: 500;
   color: var(--heading-color);
   font-family: var(--heading-font);
   margin: 0;
 }
 
+/* Warna aksen titik atau elemen tambahan */
 .header .top-row .logo span {
   color: var(--accent-color);
-  font-size: 28px;
+  font-size: 30px;
+  /* sedikit lebih besar */
   font-weight: 700;
   line-height: 1.1;
+}
+
+/* Responsif agar logo tidak terlalu besar di layar kecil */
+@media (max-width: 992px) {
+  .header .top-row .logo img {
+    max-height: 65px;
+  }
+
+  .header .top-row .logo .sitename {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 576px) {
+  .header .top-row .logo img {
+    max-height: 50px;
+  }
+
+  .header .top-row .logo .sitename {
+    font-size: 22px;
+  }
 }
 
 .header .social-links a {
@@ -331,6 +384,8 @@ h6 {
   margin-top: 10px;
   display: flex;
   justify-content: center;
+  border-top: 2px solid #5f7f9c; /* garis atas tipis */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* bayangan halus di bawah navbar */
 }
 
 .header .mobile-nav-toggle {
@@ -338,6 +393,7 @@ h6 {
   top: 20px;
   right: 5px;
 }
+
 
 /*--------------------------------------------------------------
 # Navigation Menu
@@ -501,11 +557,13 @@ h6 {
     font-weight: 500;
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* <-- Ubah jadi rata kiri */
+    justify-content: flex-start;
+    /* <-- Ubah jadi rata kiri */
     gap: 10px;
     white-space: nowrap;
     transition: 0.3s;
-    text-align: left; /* Tambahan untuk memastikan teks kiri */
+    text-align: left;
+    /* Tambahan untuk memastikan teks kiri */
   }
 
   .navmenu a i,
@@ -524,7 +582,8 @@ h6 {
   }
 
   .navmenu a i.toggle-dropdown {
-    margin-left: auto; /* ikon panah tetap kanan */
+    margin-left: auto;
+    /* ikon panah tetap kanan */
   }
 
   .navmenu a:hover,
@@ -693,6 +752,53 @@ h6 {
 .footer .credits {
   margin-top: 8px;
   font-size: 13px;
+}
+
+.footer .footer-bottom {
+  margin-top: 60px;
+  padding: 25px 0;
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+}
+
+.footer .footer-bottom .footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .footer .footer-bottom .footer-bottom-content {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+}
+
+.footer .footer-bottom .footer-bottom-content p {
+  margin: 0;
+  color: color-mix(in srgb, var(--default-color), transparent 40%);
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.footer .footer-bottom .footer-bottom-content p .sitename {
+  color: var(--heading-color);
+  font-weight: 500;
+}
+
+.footer .footer-bottom .footer-bottom-content .credits {
+  font-size: 13px;
+  color: color-mix(in srgb, var(--default-color), transparent 50%);
+}
+
+.footer .footer-bottom .footer-bottom-content .credits a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.footer .footer-bottom .footer-bottom-content .credits a:hover {
+  text-decoration: underline;
 }
 
 /*--------------------------------------------------------------

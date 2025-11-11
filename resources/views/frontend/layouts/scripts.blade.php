@@ -14,3 +14,5 @@
 
 <!-- Main JS File -->
 <script src="{{ asset('blogy-assets/js/main.js') }}"></script>
+
+

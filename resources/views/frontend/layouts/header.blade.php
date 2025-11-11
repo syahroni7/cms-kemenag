@@ -1,12 +1,13 @@
 <!-- ======= Header ======= -->
 <header id="header" class="header position-relative">
+
     <div class="container-fluid container-xl position-relative">
 
         <div class="top-row d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-end">
+            <a href="/" class="logo d-flex align-items-end">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
-                <!-- <img src="assets/img/logo.webp" alt=""> -->
-                <h1 class="sitename">Blogy</h1><span>.</span>
+                <img src="blogy-assets/img/logo-cms-kemenag.png" alt="Logo Kemenag Lebak">
+                <!-- <h1 class="sitename">Blogy</h1><span>.</span> -->
             </a>
 
             <div class="d-flex align-items-center">
@@ -38,7 +39,6 @@
                             <li><a href="blog-details.html"><i class="bi bi-people"></i><span>Data Pegawai</span></a></li>
                         </ul>
                     </li>
-                    <li><a href="about.html">About</a></li>
                     <li><a href="/kategori">Kategori</a></li>
                     <li><a href="blog-details.html">Blog Details</a></li>
                     <li class="dropdown"><a href="#"><i class="bi bi-people-fill me-2"></i><span>Interaksi</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>

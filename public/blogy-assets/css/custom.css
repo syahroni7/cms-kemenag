@@ -47,3 +47,37 @@
   color: var(--color-primary);
   transform: scale(1.1);
 }
+
+/* ===========================
+   Kustomisasi Logo Kemenag Lebak
+   =========================== */
+.top-row .logo img {
+  height: 80px;              /* ukuran utama logo */
+  width: auto;               /* jaga proporsi gambar */
+  transition: all 0.3s ease; /* animasi halus saat hover */
+  display: block;
+}
+
+/* Efek saat hover */
+.top-row .logo img:hover {
+  transform: scale(1.05); /* sedikit membesar saat diarahkan cursor */
+}
+
+/* Jarak antara logo dan elemen lain di baris atas */
+.top-row .logo {
+  gap: 10px;
+  align-items: center;
+}
+
+/* Responsif untuk layar tablet dan HP */
+@media (max-width: 992px) {
+  .top-row .logo img {
+    height: 65px; /* sedikit lebih kecil di tablet */
+  }
+}
+
+@media (max-width: 576px) {
+  .top-row .logo img {
+    height: 50px; /* ukuran ideal untuk ponsel */
+  }
+}
