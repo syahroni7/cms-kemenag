@@ -29,32 +29,40 @@
         <div class="container d-flex justify-content-center position-relative">
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="category.html">Category</a></li>
-                    <li><a href="blog-details.html">Blog Details</a></li>
-                    <li><a href="author-profile.html">Author Profile</a></li>
-                    <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                        <ul>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="category.html">Category</a></li>
-                            <li><a href="blog-details.html">Blog Details</a></li>
-                            <li><a href="author-profile.html">Author Profile</a></li>
-                            <li><a href="search-results.html">Search Results</a></li>
-                            <li><a href="404.html">404 Not Found Page</a></li>
-
-                            <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                <ul>
-                                    <li><a href="#">Deep Dropdown 1</a></li>
-                                    <li><a href="#">Deep Dropdown 2</a></li>
-                                    <li><a href="#">Deep Dropdown 3</a></li>
-                                    <li><a href="#">Deep Dropdown 4</a></li>
-                                    <li><a href="#">Deep Dropdown 5</a></li>
-                                </ul>
-                            </li>
+                    <li><a href="/" class="active">Beranda</a></li>
+                    <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul class="menu-list">
+                            <li><a href="#"><i class="bi bi-bullseye"></i><span>Visi dan Misi</span></a></li>
+                            <li><a href="#"><i class="bi bi-diagram-3"></i><span>Struktur Organisasi</span></a></li>
+                            <li><a href="#"><i class="bi bi-clipboard-check"></i><span>Tugas Pokok dan Fungsi</span></a></li>
+                            <li><a href="blog-details.html"><i class="bi bi-people"></i><span>Data Pegawai</span></a></li>
                         </ul>
                     </li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="/kategori">Kategori</a></li>
+                    <li><a href="blog-details.html">Blog Details</a></li>
+                    <li class="dropdown"><a href="#"><i class="bi bi-people-fill me-2"></i><span>Interaksi</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul class="menu-list">
+                            <li><a href="about.html"><i class="bi bi-bar-chart"></i><span>Survei</span></a></li>
+                            <li><a href="category.html"><i class="bi bi-chat-dots"></i><span>Suara Anda</span></a></li>
+                            <li><a href="blog-details.html"><i class="bi bi-envelope-open"></i><span>Masukan dan Saran</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="#"><span>Galeri</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul class="menu-list">
+                            <li><a href="#"><i class="bi bi-camera"></i><span>Foto</span></a></li>
+                            <li><a href="#"><i class="bi bi-play-btn"></i><span>Video</span></a></li>
+                            <li><a href="#"><i class="bi bi-bar-chart-fill"></i><span>Infografis</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="#"><span>Berita</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul class="menu-list">
+                            <li><a href="#"><i class="bi bi-flag"></i><span>Nasional</span></a></li>
+                            <li><a href="#"><i class="bi bi-geo-alt"></i><span>Daerah</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><i class="bi bi-megaphone me-2"></i><span>Pengumuman</span></a></li>
+                    <li><a href="/kontak">Kontak</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>

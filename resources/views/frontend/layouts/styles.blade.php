@@ -16,3 +16,4 @@
 
 <!-- Main CSS File -->
 <link href="{{ asset('blogy-assets/css/style.css') }}" rel="stylesheet">
+<link href="{{ asset('blogy-assets/css/custom.css') }}" rel="stylesheet">

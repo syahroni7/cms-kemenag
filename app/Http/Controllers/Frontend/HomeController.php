@@ -38,7 +38,7 @@ class HomeController extends Controller
             ->latest('published_at')
             ->paginate(9);
 
-        // Return ke tampilan beranda
+        // Return ke tampilan frontend
         return view('frontend.layouts.index', [
             'headline' => $headline,
             'latestPosts' => $latestPosts,
@@ -46,6 +46,21 @@ class HomeController extends Controller
             'posts' => $allPosts,
         ]);
     }
+        // Return ke tampilan kontak
+        public function kontak()
+        {
+            return view('frontend.landing.kontak.index', [
+                'title' => 'Kontak'
+            ]);
+        }
+
+        // Return ke tampilan kategori
+        public function kategori()
+        {
+            return view('frontend.landing.kategori.index', [
+                'title' => 'Kategori'
+            ]);
+        }
 
     /**
      * Filter berita berdasarkan kategori.

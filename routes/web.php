@@ -21,6 +21,8 @@ Route::prefix('admin')
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
 });
+Route::get('/kontak', [\App\Http\Controllers\Frontend\HomeController::class, 'kontak'])->name('frontend.landing.kontak');
+Route::get('/kategori', [\App\Http\Controllers\Frontend\HomeController::class, 'kategori'])->name('frontend.landing.kategori');
 
 Route::get('/berita/{slug}', [PostController::class, 'show'])->name('berita.show');
 Route::get('/kategori/{slug}', [CategoryController::class, 'show'])->name('kategori.show');

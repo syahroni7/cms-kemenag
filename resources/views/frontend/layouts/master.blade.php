@@ -1,93 +1,69 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ $meta_description ?? 'Portal resmi berita dan informasi Instansi Pemerintah.' }}">
-    <meta name="keywords" content="{{ $meta_keywords ?? 'berita pemerintah, informasi publik, instansi, portal resmi' }}">
-    <meta name="author" content="Instansi Pemerintah">
+    <!-- Google tag (gtag.js) -->
 
-    <title>{{ $title ?? 'Portal Berita Instansi Pemerintah' }}</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>@yield('title')</title>
+    <!-- Meta Dasar -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>SIPINTU | PTSP Kemenag Lebak</title>
+    <meta name="description" content="SIPINTU adalah Sistem Pelayanan Terpadu Satu Pintu Kementerian Agama Kabupaten Lebak. Ajukan layanan secara mudah, transparan, dan akuntabel.">
+    <meta name="keywords" content="SIPINTU, PTSP Kemenag, Kementerian Agama Lebak, pelayanan publik, layanan online, Kemenag Lebak, sistem terpadu, pelayanan agama, Lebak">
+    <meta name="author" content="Kementerian Agama Kabupaten Lebak">
 
-    <!-- FontAwesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+    <!-- Meta Sosial (Open Graph untuk Facebook, WhatsApp, LinkedIn) -->
+    <meta property="og:title" content="SIPINTU | PTSP Kemenag Lebak">
+    <meta property="og:description" content="Ajukan layanan secara mudah, transparan, dan akuntabel melalui Sistem Pelayanan Terpadu Satu Pintu Kemenag Lebak.">
+    <meta property="og:image" content="https://example.com/assets/img/og-image.jpg"> <!-- Ganti URL dengan gambar share -->
+    <meta property="og:url" content="https://ptspkemenaglebak.my.id"> <!-- Ganti dengan URL asli -->
+    <meta property="og:type" content="website">
 
-    <!-- Custom CSS -->
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8fafc;
-        }
-        header {
-            background: #005b96;
-            color: white;
-        }
-        footer {
-            background: #003d73;
-            color: white;
-            padding: 20px 0;
-        }
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.25rem;
-        }
-        .news-card {
-            transition: transform 0.3s ease;
-        }
-        .news-card:hover {
-            transform: translateY(-5px);
-        }
-    </style>
+    <!-- Meta Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SIPINTU | PTSP Kemenag Lebak">
+    <meta name="twitter:description" content="Layanan publik digital Kemenag Lebak berbasis transparansi dan kemudahan akses.">
+    <meta name="twitter:image" content="https://example.com/assets/img/og-image.jpg"> <!-- Ganti dengan gambar valid -->
 
-    @stack('styles')
+    <!-- Robots -->
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicons -->
+    <link href="{{ asset('bizland-assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('bizland-assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+
+    @include('frontend.layouts.styles')
+
+    @yield('_styles')
+
 </head>
-<body>
 
-    <!-- ===== Header / Navbar ===== -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark container py-3">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <i class="fa-solid fa-landmark me-2"></i> Instansi Pemerintah
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<body class="index-page">
 
-            <div class="collapse navbar-collapse" id="navbarContent">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">Beranda</a></li>
-                    <li class="nav-item"><a href="{{ url('/berita') }}" class="nav-link">Berita</a></li>
-                    <li class="nav-item"><a href="{{ url('/profil') }}" class="nav-link">Profil</a></li>
-                    <li class="nav-item"><a href="{{ url('/kontak') }}" class="nav-link">Kontak</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    @include('frontend.layouts.header')
 
-    <!-- ===== Main Content ===== -->
-    <main class="py-4">
-        <div class="container">
-            @yield('content')
-        </div>
-    </main>
+    <main id="main">
 
-    <!-- ===== Footer ===== -->
-    <footer class="text-center mt-5">
-        <div class="container">
-            <p class="mb-1">© {{ date('Y') }} Instansi Pemerintah. Semua Hak Dilindungi.</p>
-            <small>
-                <a href="{{ url('/') }}" class="text-white text-decoration-none me-3">Beranda</a>
-                <a href="{{ url('/tentang') }}" class="text-white text-decoration-none me-3">Tentang</a>
-                <a href="{{ url('/kebijakan-privasi') }}" class="text-white text-decoration-none">Privasi</a>
-            </small>
-        </div>
-    </footer>
+        @yield('content')
 
-    <!-- ===== Scripts ===== -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    @stack('scripts')
+    </main><!-- End #main -->
+
+    @include('frontend.layouts.footer')
+    @include('frontend.layouts.scripts')
+
+
+    @yield('_scripts')
+
 </body>
+
 </html>

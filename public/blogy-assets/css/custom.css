@@ -1,0 +1,49 @@
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left !important;
+  font-family: "Poppins", sans-serif;
+}
+
+.menu-list li {
+  margin-bottom: 5px;
+}
+
+.menu-list a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-default);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+  justify-content: flex-start; /* pastikan isi ke kiri */
+  gap: 6px; /* jarak antara ikon dan teks */
+}
+
+.menu-list a i {
+  flex-shrink: 0; /* ikon tidak ikut geser */
+  color: var(--color-primary);
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.25s ease;
+}
+
+.menu-list a span {
+  flex-grow: 1; /* teks sejajar kiri tanpa melar ke kanan */
+  text-align: left;
+}
+
+.menu-list a:hover {
+  color: var(--color-primary);
+  background-color: rgba(0, 0, 0, 0.03);
+  transform: translateX(2px);
+}
+
+.menu-list a:hover i {
+  color: var(--color-primary);
+  transform: scale(1.1);
+}
