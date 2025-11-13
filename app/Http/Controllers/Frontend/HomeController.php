@@ -5,18 +5,39 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Models\Kontak;
 use App\Models\SocialMedia;
+use App\Models\Menu;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    protected $menus;
+    protected $socials;
+
+    public function __construct()
+    {
+        // Ambil semua menu utama + submenu recursive dari database
+        $this->menus = Menu::whereNull('parent_id')
+            ->orderBy('order')
+            ->with('childrenRecursive')
+            ->get();
+
+        // Ambil semua akun sosial media
+        $this->socials = SocialMedia::all();
+
+        // Share ke semua view agar tidak perlu dikirim satu per satu
+        view()->share([
+            'menus' => $this->menus,
+            'socials' => $this->socials,
+        ]);
+    }
+
     /**
-     * Tampilkan halaman utama website berita instansi.
+     * Halaman utama.
      */
     public function index()
     {
-        // ambil data seperti sebelumnya ...
         $slides = Post::where('status', 'published')
             ->where('is_slider', true)
             ->latest('published_at')
@@ -49,11 +70,8 @@ class HomeController extends Controller
             ->latest('published_at')
             ->paginate(9);
 
-        $socials = SocialMedia::all();
-
         return view('frontend.layouts.index', [
             'slides' => $slides,
-            'socials' => $socials,
             'headline' => $headline,
             'latestPosts' => $latestPosts,
             'popularCategories' => $popularCategories,
@@ -66,11 +84,8 @@ class HomeController extends Controller
      */
     public function kategori()
     {
-        $socials = SocialMedia::all();
-
         return view('frontend.landing.kategori.index', [
             'title' => 'Kategori',
-            'socials' => $socials, // <-- tambah ini supaya socials tersedia
         ]);
     }
 
@@ -80,12 +95,10 @@ class HomeController extends Controller
     public function kontak()
     {
         $kontak = Kontak::first();
-        $socials = SocialMedia::all();  // Ambil semua data sosial media
 
         return view('frontend.landing.kontak.index', [
             'title' => 'Kontak',
             'kontak' => $kontak,
-            'socials' => $socials,  // Kirim ke view agar footer dapat data sosial media
         ]);
     }
 
@@ -101,12 +114,9 @@ class HomeController extends Controller
             ->latest('published_at')
             ->paginate(9);
 
-        $socials = SocialMedia::all();
-
         return view('frontend.category', [
             'category' => $category,
             'posts' => $posts,
-            'socials' => $socials, // <-- tambah ini juga
         ]);
     }
 
@@ -126,12 +136,9 @@ class HomeController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        $socials = SocialMedia::all();
-
         return view('frontend.search', [
             'query' => $query,
             'posts' => $posts,
-            'socials' => $socials, // <-- tambah ini supaya socials tersedia
         ]);
     }
 }

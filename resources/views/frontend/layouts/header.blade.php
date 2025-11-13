@@ -30,42 +30,47 @@
         <div class="container d-flex justify-content-center position-relative">
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="/" class="active">Beranda</a></li>
-                    <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                    @foreach ($menus as $menu)
+                    @if ($menu->children->count() > 0)
+                    {{-- Dropdown Menu --}}
+                    <li class="dropdown">
+                        <a href="#">
+                            @if ($menu->icon)
+                            <i class="{{ $menu->icon }}"></i>
+                            @endif
+                            <span>{{ $menu->name }}</span>
+                            <i class="bi bi-chevron-down toggle-dropdown"></i>
+                        </a>
                         <ul class="menu-list">
-                            <li><a href="#"><i class="bi bi-bullseye"></i><span>Visi dan Misi</span></a></li>
-                            <li><a href="#"><i class="bi bi-diagram-3"></i><span>Struktur Organisasi</span></a></li>
-                            <li><a href="#"><i class="bi bi-clipboard-check"></i><span>Tugas Pokok dan Fungsi</span></a></li>
-                            <li><a href="blog-details.html"><i class="bi bi-people"></i><span>Data Pegawai</span></a></li>
+                            @foreach ($menu->children as $child)
+                            <li>
+                                <a href="{{ $child->url ?? '#' }}">
+                                    @if ($child->icon)
+                                    <i class="{{ $child->icon }}"></i>
+                                    @endif
+                                    <span>{{ $child->name }}</span>
+                                </a>
+                            </li>
+                            @endforeach
                         </ul>
                     </li>
-                    <li><a href="/kategori">Kategori</a></li>
-                    <li><a href="blog-details.html">Blog Details</a></li>
-                    <li class="dropdown"><a href="#"><i class="bi bi-people-fill me-2"></i><span>Interaksi</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                        <ul class="menu-list">
-                            <li><a href="about.html"><i class="bi bi-bar-chart"></i><span>Survei</span></a></li>
-                            <li><a href="category.html"><i class="bi bi-chat-dots"></i><span>Suara Anda</span></a></li>
-                            <li><a href="blog-details.html"><i class="bi bi-envelope-open"></i><span>Masukan dan Saran</span></a></li>
-                        </ul>
+                    @else
+                    {{-- Menu tanpa submenu --}}
+                    <li>
+                        <a href="{{ $menu->url ?? '#' }}">
+                            @if ($menu->icon)
+                            <i class="{{ $menu->icon }}"></i>
+                            @endif
+                            <span>{{ $menu->name }}</span>
+                        </a>
                     </li>
-                    <li class="dropdown"><a href="#"><span>Galeri</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                        <ul class="menu-list">
-                            <li><a href="#"><i class="bi bi-camera"></i><span>Foto</span></a></li>
-                            <li><a href="#"><i class="bi bi-play-btn"></i><span>Video</span></a></li>
-                            <li><a href="#"><i class="bi bi-bar-chart-fill"></i><span>Infografis</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown"><a href="#"><span>Berita</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                        <ul class="menu-list">
-                            <li><a href="#"><i class="bi bi-flag"></i><span>Nasional</span></a></li>
-                            <li><a href="#"><i class="bi bi-geo-alt"></i><span>Daerah</span></a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#"><i class="bi bi-megaphone me-2"></i><span>Pengumuman</span></a></li>
-                    <li><a href="/kontak">Kontak</a></li>
+                    @endif
+                    @endforeach
                 </ul>
+
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
+
         </div>
     </div>
 
