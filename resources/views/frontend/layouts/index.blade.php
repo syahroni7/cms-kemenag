@@ -2,7 +2,6 @@
 @section('title', 'Kemenag Lebak')
 
 
-
 @section('_styles')
 @endsection
 
@@ -10,10 +9,11 @@
 @section('content')
 
 <main class="main">
+<x-slider :slides="$slides" />
 
     <!-- Blog Hero Section -->
     <section id="blog-hero" class="blog-hero section">
-
+      
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="blog-grid">

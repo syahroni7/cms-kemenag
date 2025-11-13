@@ -2,9 +2,6 @@
 <html lang="en">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-
-
     <title>@yield('title')</title>
     <meta name="description" content="{{ $meta_description ?? 'Portal resmi Kemenag Lebak menyediakan layanan haji, umrah, pendidikan, dan keagamaan.' }}">
     <meta name="keywords" content="{{ $meta_keywords ?? 'kemenag lebak, haji lebak, umrah lebak, layanan keagamaan' }}">

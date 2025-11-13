@@ -3,21 +3,34 @@
     <div class="container footer-top">
         <div class="row gy-4">
             <div class="col-lg-4 col-md-6 footer-about">
+                @php
+                $footerKontak = \App\Models\Kontak::first();
+                @endphp
                 <a href="index.html" class="logo d-flex align-items-center">
-                    <span class="sitename">Kemenag Lebak</span>
+                    <span class="sitename">{{$footerKontak->nama_kantor ?? '-'}}</span>
                 </a>
                 <div class="footer-contact pt-3">
-                    <p>A108 Adam Street</p>
-                    <p>New York, NY 535022</p>
-                    <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-                    <p><strong>Email:</strong> <span>info@example.com</span></p>
+
+                    @if($footerKontak)
+                    <p>{{ $footerKontak->alamat }}</p>
+                    <p class="mt-3"><strong>Phone:</strong> <span>{{ $footerKontak->telepon ?? '-' }}</span></p>
+                    <p><strong>Email:</strong> <span>{{ $footerKontak->email ?? '-' }}</span></p>
+                    @else
+                    <p>Alamat belum tersedia</p>
+                    <p class="mt-3"><strong>Phone:</strong> <span>-</span></p>
+                    <p><strong>Email:</strong> <span>-</span></p>
+                    @endif
                 </div>
+                
+                <!-- Sosial Media -->
                 <div class="social-links d-flex mt-4">
-                    <a href=""><i class="bi bi-twitter-x"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""><i class="bi bi-tiktok"></i></a>
+                    @foreach($socials as $social)
+                    <a href="{{ $social->profile_url ?? '-' }}" target="_blank" title="{{ $social->platform_name ?? '-' }}">
+                        <i class="{{ $social->icon_class ?? '-' }}"></i>
+                    </a>
+                    @endforeach
                 </div>
+
             </div>
 
             <div class="col-lg-2 col-md-3 footer-links">
@@ -72,7 +85,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="footer-bottom-content">
-                        <p class="mb-0">© {{ date('Y') }},<strong> Kantor Kemenag Lebak</strong>. All rights reserved.</p>
+                        <p class="mb-0">© {{ date('Y') }},<strong> {{ $footerKontak->nama_kantor }}</strong>. All rights reserved.</p>
                         <div class="credits">
                             <!-- All the links in the footer should remain intact. -->
                             <!-- You can delete the links only if you've purchased the pro version. -->

@@ -1,11 +1,14 @@
 @extends('frontend.layouts.master')
-@section('title', 'Kontak')
-
-
+@section('title', $title)
 
 @section('_styles')
+<style>
+    /* Agar line break di jam_operasional tampil */
+    .jam-operasional {
+        white-space: pre-line;
+    }
+</style>
 @endsection
-
 
 @section('content')
 <main class="main">
@@ -16,7 +19,6 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#"><i class="bi bi-house"></i> Beranda</a></li>
-                    <li class="breadcrumb-item"><a href="#">Kontak</a></li>
                     <li class="breadcrumb-item active current">Kontak</li>
                 </ol>
             </nav>
@@ -33,6 +35,7 @@
 
         <div class="container" data-aos="fade-up" data-aos-delay="100">
 
+            @if($kontak)
             <div class="row gy-4 mb-5">
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="info-card">
@@ -40,7 +43,7 @@
                             <i class="bi bi-geo-alt"></i>
                         </div>
                         <h3>Alamat</h3>
-                        <p>2847 Rainbow Road, Springfield, IL 62701, USA</p>
+                        <p>{{ $kontak->alamat }}</p>
                     </div>
                 </div>
 
@@ -50,8 +53,10 @@
                             <i class="bi bi-telephone"></i>
                         </div>
                         <h3>Kontak</h3>
-                        <p>Mobile: +1 (555) 123-4567<br>
-                            Email: info@example.com</p>
+                        <p>
+                            Telepon: {{ $kontak->telepon ?? '-' }}<br>
+                            Email: {{ $kontak->email ?? '-' }}
+                        </p>
                     </div>
                 </div>
 
@@ -61,12 +66,15 @@
                             <i class="bi bi-clock"></i>
                         </div>
                         <h3>Jam Operasional</h3>
-                        <p>Monday - Saturday: 9:00 - 18:00<br>
-                            Sunday: Closed</p>
+                        <p class="jam-operasional">{{ $kontak->jam_operasional ?? '-' }}</p>
                     </div>
                 </div>
             </div>
+            @else
+            <p>Data kontak belum tersedia.</p>
+            @endif
 
+            <!-- Form Kontak -->
             <div class="row">
                 <div class="col-lg-12">
                     <div class="form-wrapper" data-aos="fade-up" data-aos-delay="400">
@@ -130,11 +138,7 @@
     </section><!-- /Contact Section -->
 
 </main>
-
 @endsection
 
-
 @section('_scripts')
-
-
 @endsection
