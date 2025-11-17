@@ -15,15 +15,6 @@
 
     <!-- Page Title -->
     <div class="page-title">
-        <div class="breadcrumbs">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#"><i class="bi bi-house"></i> Beranda</a></li>
-                    <li class="breadcrumb-item active current">Kontak</li>
-                </ol>
-            </nav>
-        </div>
-
         <div class="title-wrapper">
             <h1>Kontak</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>

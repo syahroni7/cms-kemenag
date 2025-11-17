@@ -17,9 +17,10 @@ class HomeController extends Controller
 
     public function __construct()
     {
+        // Share menu dan sosial ke semua view
         $this->menus = Menu::whereNull('parent_id')
             ->orderBy('order')
-            ->with('children') // otomatis recursive
+            ->with('children')
             ->get();
 
         $this->socials = SocialMedia::all();
@@ -73,26 +74,33 @@ class HomeController extends Controller
             'latestPosts' => $latestPosts,
             'popularCategories' => $popularCategories,
             'posts' => $allPosts,
+            'breadcrumbs' => [], // halaman home tidak perlu breadcrumbs tambahan
         ]);
     }
 
     /**
-     * Halaman kategori.
+     * Halaman Data Pegawai.
      */
     public function datapegawai()
     {
         return view('frontend.landing.data-pegawai.index', [
             'title' => 'Data Pegawai',
+            'breadcrumbs' => [
+                ['label' => 'Data Pegawai', 'url' => url('/data-pegawai')],
+            ],
         ]);
     }
 
     /**
-     * Halaman kategori.
+     * Halaman Kategori (daftar semua kategori).
      */
     public function kategori()
     {
         return view('frontend.landing.kategori.index', [
             'title' => 'Kategori',
+            'breadcrumbs' => [
+                ['label' => 'Kategori', 'url' => url('/kategori')],
+            ],
         ]);
     }
 
@@ -110,7 +118,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Filter berita berdasarkan kategori.
+     * Halaman kategori spesifik.
      */
     public function category($slug)
     {
@@ -124,20 +132,24 @@ class HomeController extends Controller
         return view('frontend.category', [
             'category' => $category,
             'posts' => $posts,
+            'breadcrumbs' => [
+                ['label' => 'Kategori', 'url' => url('/kategori')],
+                ['label' => $category->name], // terakhir tidak perlu URL
+            ],
         ]);
     }
 
     /**
-     * Fitur pencarian berita berdasarkan judul atau isi.
+     * Fitur pencarian berita.
      */
     public function search(Request $request)
     {
         $query = $request->input('q');
 
         $posts = Post::where('status', 'published')
-            ->where(function ($q) use ($query) {
-                $q->where('title', 'like', "%{$query}%")
-                    ->orWhere('content', 'like', "%{$query}%");
+            ->where(function ($q2) use ($query) {
+                $q2->where('title', 'like', "%{$query}%")
+                   ->orWhere('content', 'like', "%{$query}%");
             })
             ->latest('published_at')
             ->paginate(10)
@@ -146,6 +158,9 @@ class HomeController extends Controller
         return view('frontend.search', [
             'query' => $query,
             'posts' => $posts,
+            'breadcrumbs' => [
+                ['label' => 'Pencarian', 'url' => url('/search?q=' . $query)],
+            ],
         ]);
     }
 }

@@ -25,7 +25,16 @@
     @include('frontend.layouts.styles')
 
     @yield('_styles')
-    
+    <style>
+        .page-title,
+        .page-title .breadcrumbs,
+        nav[aria-label="breadcrumb"],
+        .breadcrumb {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    </style>
+
 
 </head>
 
@@ -35,6 +44,16 @@
 
     <main id="main">
 
+        {{-- Breadcrumb otomatis --}}
+        <div class="page-title">
+            <div class="breadcrumbs">
+                <nav aria-label="breadcrumb">
+                    <x-breadcrumbs :breadcrumbs="$breadcrumbs" />
+                </nav>
+            </div>
+        </div>
+
+        {{-- Konten halaman --}}
         @yield('content')
 
     </main><!-- End #main -->
