@@ -11,16 +11,12 @@ class Menu extends Model
 
     protected $fillable = ['name', 'icon', 'url', 'parent_id', 'order'];
 
-    // Relasi: menu punya banyak anak (submenu)
+    // Relasi: menu punya anak → cucu → cicit (rekursif)
     public function children()
     {
-        return $this->hasMany(Menu::class, 'parent_id')->orderBy('order');
-    }
-
-    // Relasi recursive: ambil children + cucu + seterusnya
-    public function childrenRecursive()
-    {
-        return $this->children()->with('childrenRecursive');
+        return $this->hasMany(Menu::class, 'parent_id')
+                    ->orderBy('order')
+                    ->with('children');
     }
 
     // Relasi ke parent

@@ -31,40 +31,7 @@
             <nav id="navmenu" class="navmenu">
                 <ul>
                     @foreach ($menus as $menu)
-                    @if ($menu->children->count() > 0)
-                    {{-- Dropdown Menu --}}
-                    <li class="dropdown">
-                        <a href="#">
-                            @if ($menu->icon)
-                            <i class="{{ $menu->icon }}"></i>
-                            @endif
-                            <span>{{ $menu->name }}</span>
-                            <i class="bi bi-chevron-down toggle-dropdown"></i>
-                        </a>
-                        <ul class="menu-list">
-                            @foreach ($menu->children as $child)
-                            <li>
-                                <a href="{{ $child->url ?? '#' }}">
-                                    @if ($child->icon)
-                                    <i class="{{ $child->icon }}"></i>
-                                    @endif
-                                    <span>{{ $child->name }}</span>
-                                </a>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </li>
-                    @else
-                    {{-- Menu tanpa submenu --}}
-                    <li>
-                        <a href="{{ $menu->url ?? '#' }}">
-                            @if ($menu->icon)
-                            <i class="{{ $menu->icon }}"></i>
-                            @endif
-                            <span>{{ $menu->name }}</span>
-                        </a>
-                    </li>
-                    @endif
+                    @include('components.navbar', ['menu' => $menu])
                     @endforeach
                 </ul>
 

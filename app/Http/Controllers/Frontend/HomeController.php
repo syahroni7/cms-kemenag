@@ -17,16 +17,13 @@ class HomeController extends Controller
 
     public function __construct()
     {
-        // Ambil semua menu utama + submenu recursive dari database
         $this->menus = Menu::whereNull('parent_id')
             ->orderBy('order')
-            ->with('childrenRecursive')
+            ->with('children') // otomatis recursive
             ->get();
 
-        // Ambil semua akun sosial media
         $this->socials = SocialMedia::all();
 
-        // Share ke semua view agar tidak perlu dikirim satu per satu
         view()->share([
             'menus' => $this->menus,
             'socials' => $this->socials,
@@ -76,6 +73,16 @@ class HomeController extends Controller
             'latestPosts' => $latestPosts,
             'popularCategories' => $popularCategories,
             'posts' => $allPosts,
+        ]);
+    }
+
+    /**
+     * Halaman kategori.
+     */
+    public function datapegawai()
+    {
+        return view('frontend.landing.data-pegawai.index', [
+            'title' => 'Data Pegawai',
         ]);
     }
 

@@ -1,0 +1,62 @@
+/* Untuk Style Login Page Tampilan Perubahan Baru */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+.bg-image {
+    /* The image used */
+    background: url("/anyar-assets/img/landing-kmg.jpeg") top center !important;
+    background-image: url("/anyar-assets/img/landing-kmg.jpeg") top center !important;
+    background-size: cover !important;
+    /* Add the blur effect */
+    filter: blur(3px);
+    -webkit-filter: blur(3px);
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/*------------ Login container ------------*/
+
+.box-area {
+    width: 930px;
+}
+
+/*------------ Right box ------------*/
+
+.right-box {
+    padding: 40px 30px 40px 40px;
+}
+
+/*------------ Custom Placeholder ------------*/
+
+::placeholder {
+    font-size: 16px;
+}
+
+.rounded-4 {
+    border-radius: 20px;
+}
+.rounded-5 {
+    border-radius: 30px;
+}
+
+/*------------ For small screens------------*/
+
+@media only screen and (max-width: 768px) {
+    .box-area {
+        margin: 0 10px;
+    }
+    .left-box {
+        height: 225px;
+        overflow: hidden;
+        padding: 20px !important;
+    }
+    .right-box {
+        padding: 20px;
+    }
+}

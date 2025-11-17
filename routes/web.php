@@ -5,7 +5,6 @@ use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Frontend\HomeController;
-use App\Http\Controllers\KontakController;
 
 
 // Roles Permission
@@ -22,6 +21,7 @@ Route::prefix('admin')
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
 });
+Route::get('/data-pegawai', [\App\Http\Controllers\Frontend\HomeController::class, 'datapegawai'])->name('frontend.landing.data-pegawai');
 Route::get('/kategori', [\App\Http\Controllers\Frontend\HomeController::class, 'kategori'])->name('frontend.landing.kategori');
 Route::get('/kontak', [\App\Http\Controllers\Frontend\HomeController::class, 'kontak'])->name('frontend.landing.kontak');
 
