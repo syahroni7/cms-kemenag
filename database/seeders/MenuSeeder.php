@@ -48,7 +48,7 @@ class MenuSeeder extends Seeder
             [
                 'name' => 'Data Pegawai',
                 'icon' => 'bi bi-people',
-                'url' => 'blog-details.html',
+                'url' => '/data-pegawai',
                 'parent_id' => $profile->id,
                 'order' => 4,
             ],
