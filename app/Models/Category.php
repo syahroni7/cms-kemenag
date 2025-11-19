@@ -4,19 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug'];
+    // Nama tabel (opsional, karena Laravel otomatis pakai plural)
+    protected $table = 'categories';
 
-    protected static function booted() {
-        static::creating(fn($cat) => $cat->slug = Str::slug($cat->name));
-    }
+    // Kolom yang boleh diisi
+    protected $fillable = [
+        'name',
+    ];
 
-    public function posts() {
+    // Relasi jika suatu Category punya banyak Post (opsional)
+    // Sesuaikan jika model Post Anda nanti punya category_id
+    public function posts()
+    {
         return $this->hasMany(Post::class);
     }
 }

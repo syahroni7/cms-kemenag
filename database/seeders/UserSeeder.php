@@ -3,44 +3,70 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        $now = now();
-
-        // Buat role jika belum ada
-        $roles = ['superadmin', 'admin', 'publisher', 'author'];
-        foreach ($roles as $role) {
-            Role::firstOrCreate(['name' => $role]);
-        }
-
-        // Data user
-        $users = [
-            ['name' => 'Superadministrator', 'email' => 'superadmin@example.com', 'password' => 'superadmin123', 'role' => 'superadmin'],
-            ['name' => 'Administrator',       'email' => 'admin@example.com',      'password' => 'admin123',       'role' => 'admin'],
-            ['name' => 'Publisher',           'email' => 'publisher@example.com', 'password' => 'publisher123',   'role' => 'publisher'],
-            ['name' => 'Author',              'email' => 'author@example.com',    'password' => 'author123',      'role' => 'author'],
-        ];
-
-        foreach ($users as $u) {
-            $user = User::firstOrCreate(
-                ['email' => $u['email']],
-                [
-                    'name' => $u['name'],
-                    'password' => Hash::make($u['password']),
-                    'email_verified_at' => $now,
-                    'created_at' => $now,
-                    'updated_at' => $now,
-                ]
-            );
-
-            // Assign role menggunakan Spatie
-            $user->assignRole($u['role']);
-        }
+        DB::table('users')->insert([
+            [
+                'access_type_id' => 1, // superadmin
+                'name'        => 'super_administrator',
+                'jabatan'     => 'Superadmin',
+                'username'    => '199605222025051001',
+                'email'       => 'superadmin@example.com',
+                'password'    => Hash::make('password'),
+                'block'       => 'no',
+                'status'      => 'active',
+                'created_by'  => 'system',
+                'updated_by'  => 'system',
+                'created_at'  => now(),
+                'updated_at'  => now(),
+            ],
+            [
+                'access_type_id' => 2, // admin
+                'name'        => 'administrator',
+                'jabatan'     => 'Administrator',
+                'username'    => '198101212009121006',
+                'email'       => 'administrator@example.com',
+                'password'    => Hash::make('password'),
+                'block'       => 'no',
+                'status'      => 'active',
+                'created_by'  => 'system',
+                'updated_by'  => 'system',
+                'created_at'  => now(),
+                'updated_at'  => now(),
+            ],
+            [
+                'access_type_id' => 3, // publisher
+                'name'        => 'publisher',
+                'jabatan'     => 'Publisher',
+                'username'    => '197010051991031004',
+                'email'       => 'publisher@example.com',
+                'password'    => Hash::make('password'),
+                'block'       => 'no',
+                'status'      => 'active',
+                'created_by'  => 'system',
+                'updated_by'  => 'system',
+                'created_at'  => now(),
+                'updated_at'  => now(),
+            ],
+            [
+                'access_type_id' => 4, // author
+                'name'        => 'author',
+                'jabatan'     => 'Author',
+                'username'    => '199404032025051006',
+                'email'       => 'author@example.com',
+                'password'    => Hash::make('password'),
+                'block'       => 'no',
+                'status'      => 'active',
+                'created_by'  => 'system',
+                'updated_by'  => 'system',
+                'created_at'  => now(),
+                'updated_at'  => now(),
+            ],
+        ]);
     }
 }

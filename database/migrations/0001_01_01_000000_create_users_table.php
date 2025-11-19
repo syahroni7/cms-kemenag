@@ -11,14 +11,20 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('jabatan', 100)->nullable();
+            $table->string('username')->unique();
             $table->string('email')->unique();
+            $table->string('no_hp')->nullable();            // Nomor HP
+            $table->string('profile_photo')->nullable();    // Foto profil (Cloudinary)
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('no_hp')->nullable(); // optional jika ingin nomor HP
-            $table->timestamp('last_login_at')->nullable();
-            $table->string('last_login_ip')->nullable();
+            $table->enum('block', ['no', 'yes'])->default('no');
+            $table->enum('status', ['inactive', 'active'])->default('active');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
+            $table->string('created_by')->default('');
+            $table->string('updated_by')->default('');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

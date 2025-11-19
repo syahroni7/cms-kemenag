@@ -1,0 +1,67 @@
+.org-chart ul {
+  padding-top: 20px;
+  position: relative;
+  padding-left: 0;
+}
+
+.org-chart li {
+  float: left;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+  padding: 20px 5px 0 5px;
+}
+
+/* Garis horizontal */
+.org-chart li::before,
+.org-chart li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  border-top: 2px solid #ccc;
+  width: 50%;
+  height: 20px;
+}
+
+.org-chart li::before { left: -50%; border-right: 2px solid #ccc; }
+.org-chart li::after { right: -50%; border-left: 2px solid #ccc; }
+
+.org-chart li:only-child::before,
+.org-chart li:only-child::after { display: none; }
+
+.org-chart li:first-child::before { border: 0; }
+.org-chart li:last-child::after { border: 0; }
+
+/* Garis vertikal */
+.org-chart ul ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: 2px solid #ccc;
+  width: 0;
+  height: 20px;
+}
+
+/* BOX */
+.node {
+  background: #fff;
+  display: inline-block;
+  padding: 15px 20px;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: .3s;
+}
+
+.node h5 { margin: 0; font-weight: 600; font-size: 16px; }
+.node p { margin: 0; font-size: 14px; color: #6c757d; }
+
+.node:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+}
+
+.node img {
+  margin-bottom: 6px;
+}

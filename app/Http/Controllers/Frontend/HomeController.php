@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Kontak;
 use App\Models\SocialMedia;
 use App\Models\Menu;
+use App\Models\Strukturorganisasi; // <-- import model struktur organisasi
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -76,6 +77,24 @@ class HomeController extends Controller
             'posts' => $allPosts,
             'breadcrumbs' => [], // halaman home tidak perlu breadcrumbs tambahan
         ]);
+    }
+
+    /**
+     * Halaman Struktur Organisasi
+     */
+    public function strukturOrganisasi()
+    {
+        // Struktur utama (hirarki)
+        $struktur = Strukturorganisasi::whereNull('parent_id')
+            ->where('tipe', 'struktural')
+            ->with('children.children')
+            ->get();
+
+        // Jabatan fungsional
+        $fungsional = Strukturorganisasi::where('tipe', 'fungsional')->get();
+        $title = 'Struktur Organisasi';
+
+        return view('frontend.landing.struktur-organisasi.index', compact('struktur', 'fungsional', 'title'));
     }
 
     /**
@@ -149,7 +168,7 @@ class HomeController extends Controller
         $posts = Post::where('status', 'published')
             ->where(function ($q2) use ($query) {
                 $q2->where('title', 'like', "%{$query}%")
-                   ->orWhere('content', 'like', "%{$query}%");
+                    ->orWhere('content', 'like', "%{$query}%");
             })
             ->latest('published_at')
             ->paginate(10)
