@@ -47,7 +47,7 @@
             </div>
         </section>
 
-        @include('admin.permissions._modal')
+        @include('backend.admin.permissions._modal')
 
     </main>
 
