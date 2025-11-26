@@ -11,7 +11,7 @@ use App\Http\Controllers\Backend\PengumumanController;
 // NEW CONTROLLERS (Tambahkan ini)
 // =======================
 use App\Http\Controllers\Backend\DataPengguna\PermissionController;
-use App\Http\Controllers\Backend\UserDataController;
+use App\Http\Controllers\Backend\DataPengguna\UserController;
 use App\Http\Controllers\Backend\UserRoleController;
 use App\Http\Controllers\Backend\UnitPengolahController;
 use App\Http\Controllers\Backend\DisposisiListController;
@@ -64,7 +64,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('users')->group(function () {
         // User Data
-        Route::get('/data', [UserDataController::class, 'index'])->name('user-data.index');
+        Route::get('/data', [UserController::class, 'index'])->name('user-data.index');
+        Route::post('/data/store', [UserController::class, 'store'])->name('user-data.store');
+        Route::delete('/data/destroy/{user}', [UserController::class, 'destroy'])->name('user-data.destroy');
 
         // User Roles
         Route::get('/roles', [UserRoleController::class, 'index'])->name('user-roles.index');

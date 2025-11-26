@@ -67,7 +67,7 @@
         </div>
     </section>
 
-    @include('admin.users.data._modal')
+    @include('backend.admin.users.data._modal')
 
 </main>
 

@@ -4,7 +4,7 @@
         @can('menu-dashboard')
             <li class="nav-heading">Beranda utama</li>
             @can('page-dashboard')
-                <li class="nav-item"> <a class="nav-link @if (request()->segment(1) == 'home') @else collapsed @endif" href="/home">
+                <li class="nav-item"> <a class="nav-link @if (request()->segment(1) == 'home') @else collapsed @endif" href="/dashboard">
                         <i class="bi bi-grid"></i>
                         <span>Dashboard</span> </a>
                 </li>
