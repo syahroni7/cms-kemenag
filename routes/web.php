@@ -12,7 +12,7 @@ use App\Http\Controllers\Backend\PengumumanController;
 // =======================
 use App\Http\Controllers\Backend\DataPengguna\PermissionController;
 use App\Http\Controllers\Backend\DataPengguna\UserController;
-use App\Http\Controllers\Backend\UserRoleController;
+use App\Http\Controllers\Backend\DataPengguna\RoleController;
 use App\Http\Controllers\Backend\UnitPengolahController;
 use App\Http\Controllers\Backend\DisposisiListController;
 use App\Http\Controllers\Backend\DisposisiMasterController;
@@ -59,7 +59,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('permissions')->group(function () {
         Route::get('/', [PermissionController::class, 'index'])->name('permissions.index');
         Route::post('/', [PermissionController::class, 'store'])->name('permissions.store');
-        Route::delete('/{permission}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
+        Route::delete('/destroy/{permission}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
     });
 
     Route::prefix('users')->group(function () {
@@ -69,7 +69,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/data/destroy/{user}', [UserController::class, 'destroy'])->name('user-data.destroy');
 
         // User Roles
-        Route::get('/roles', [UserRoleController::class, 'index'])->name('user-roles.index');
+        Route::get('/roles', [RoleController::class, 'index'])->name('user-roles.index');
+    Route::post('/roles/store', [RoleController::class, 'store'])->name('user-roles.store');
+    Route::put('/roles/update/{role}', [RoleController::class, 'update'])->name('user-roles.update'); // Tambah route update
+    Route::delete('/roles/destroy/{role}', [RoleController::class, 'destroy'])->name('user-roles.destroy');
     });
 
     Route::prefix('unit-pengolah')->group(function () {
