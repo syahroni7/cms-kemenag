@@ -66,7 +66,7 @@
 
                                             <!-- Page Permissions -->
                                             @if(isset($permissions['page']) && count($permissions['page']) > 0)
-                                            <div class="mb-3">
+                                            <div class="mb-4">
                                                 <h6 class="card-title text-success mb-3">
                                                     <i class="bi bi-file-earmark"></i> Page Permissions
                                                 </h6>
@@ -81,6 +81,32 @@
                                                                        id="perm_page_{{ $perm->id }}">
                                                                 <label class="form-check-label" for="perm_page_{{ $perm->id }}">
                                                                     {{ str_replace('page-', '', $perm->name) }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            @endif
+
+                                            <!-- Lainnya Permissions -->
+                                            @if(isset($permissions['lainnya']) && count($permissions['lainnya']) > 0)
+                                            <div class="mb-3">
+                                                <h6 class="card-title text-warning mb-3">
+                                                    <i class="bi bi-gear"></i> Operational Permissions
+                                                </h6>
+                                                <div class="row">
+                                                    @foreach ($permissions['lainnya'] as $perm)
+                                                        <div class="col-md-6 mb-2">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input permission-checkbox" 
+                                                                       type="checkbox" 
+                                                                       name="permissions[]" 
+                                                                       value="{{ $perm->id }}" 
+                                                                       id="perm_lainnya_{{ $perm->id }}">
+                                                                <label class="form-check-label" for="perm_lainnya_{{ $perm->id }}">
+                                                                    {{ $perm->name }}
                                                                 </label>
                                                             </div>
                                                         </div>

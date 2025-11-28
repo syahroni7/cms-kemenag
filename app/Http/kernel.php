@@ -15,4 +15,10 @@ class Kernel extends HttpKernel
         // Middleware lainnya...
         \App\Http\Middleware\SeoMiddleware::class, // Menambahkan middleware SeoMiddleware
     ];
+
+    protected $routeMiddleware = [
+    // ...
+    'role' => \App\Http\Middleware\CheckRole::class,
+    'permission' => \App\Http\Middleware\CheckPermission::class,
+];
 }

@@ -28,13 +28,13 @@ class RoleController extends Controller
                 ->addIndexColumn()
                 ->addColumn('role_permissions', function ($role) {
                     $permissions = $role->permissions->groupBy(function ($permission) {
-                        // Group by prefix (menu_, page_, etc.)
-                        if (strpos($permission->name, 'menu-') === 0) {
+                        // Group by prefix (menu-, page-, etc.)
+                        if (str_starts_with($permission->name, 'menu-')) {
                             return 'menu';
-                        } elseif (strpos($permission->name, 'page-') === 0) {
+                        } elseif (str_starts_with($permission->name, 'page-')) {
                             return 'page';
                         } else {
-                            return 'other';
+                            return 'lainnya'; // Ubah dari 'other' menjadi 'lainnya'
                         }
                     });
 
@@ -51,20 +51,20 @@ class RoleController extends Controller
 
                     // Page Permissions
                     if (isset($permissions['page']) && $permissions['page']->count() > 0) {
-                        $html .= '<div><strong>Page:</strong><br>';
+                        $html .= '<div class="mb-2"><strong>Page:</strong><br>';
                         $pageItems = $permissions['page']->pluck('name')->map(function ($name) {
                             return '<span class="badge bg-success me-1">' . str_replace('page-', '', $name) . '</span>';
                         })->toArray();
                         $html .= implode(' ', $pageItems) . '</div>';
                     }
 
-                    // Other Permissions
-                    if (isset($permissions['other']) && $permissions['other']->count() > 0) {
-                        $html .= '<div class="mt-2"><strong>Lainnya:</strong><br>';
-                        $otherItems = $permissions['other']->pluck('name')->map(function ($name) {
-                            return '<span class="badge bg-secondary me-1">' . $name . '</span>';
+                    // Lainnya Permissions
+                    if (isset($permissions['lainnya']) && $permissions['lainnya']->count() > 0) {
+                        $html .= '<div><strong>Lainnya:</strong><br>';
+                        $lainnyaItems = $permissions['lainnya']->pluck('name')->map(function ($name) {
+                            return '<span class="badge bg-warning me-1">' . $name . '</span>';
                         })->toArray();
-                        $html .= implode(' ', $otherItems) . '</div>';
+                        $html .= implode(' ', $lainnyaItems) . '</div>';
                     }
 
                     return $html ?: '<span class="text-muted">Tidak ada permissions</span>';
@@ -78,14 +78,14 @@ class RoleController extends Controller
 
                     $buttons = '<div class="btn-group" role="group">';
                     $buttons .= '<button id="editBtn" type="button" class="btn btn-sm btn-warning btn-xs" 
-                                data-bs-toggle="modal" data-bs-target="#fModal" 
-                                data-title="Edit Data Level / Peran User" data-role-id="' . $role->id . '">
-                                <i class="bi bi-pencil-square"></i> Edit
-                                </button>';
+                            data-bs-toggle="modal" data-bs-target="#fModal" 
+                            data-title="Edit Data Level / Peran User" data-role-id="' . $role->id . '">
+                            <i class="bi bi-pencil-square"></i> Edit
+                            </button>';
                     $buttons .= '<button id="destroyBtn" type="button" class="btn btn-sm btn-danger btn-xs" 
-                                data-role_id="' . $role->id . '">
-                                <i class="bi bi-trash-fill"></i> Hapus
-                                </button>';
+                            data-role_id="' . $role->id . '">
+                            <i class="bi bi-trash-fill"></i> Hapus
+                            </button>';
                     $buttons .= '</div>';
 
                     return $buttons;
@@ -115,12 +115,12 @@ class RoleController extends Controller
         $permissions = Permission::all();
 
         $groupedPermissions = $permissions->groupBy(function ($permission) {
-            if (strpos($permission->name, 'menu-') === 0) {
+            if (str_starts_with($permission->name, 'menu-')) {
                 return 'menu';
-            } elseif (strpos($permission->name, 'page-') === 0) {
+            } elseif (str_starts_with($permission->name, 'page-')) {
                 return 'page';
             } else {
-                return 'other';
+                return 'lainnya'; // Ubah dari 'other' menjadi 'lainnya'
             }
         });
 
@@ -267,5 +267,37 @@ class RoleController extends Controller
                 'message' => 'Gagal menghapus role: ' . $e->getMessage()
             ], 500);
         }
+    }
+
+    public function create()
+    {
+        $allPermissions = Permission::all();
+
+        $permissions = [
+            'menu' => $allPermissions->filter(fn($p) => str_starts_with($p->name, 'menu-')),
+            'page' => $allPermissions->filter(fn($p) => str_starts_with($p->name, 'page-')),
+            'lainnya' => $allPermissions->filter(
+                fn($p) =>
+                !str_starts_with($p->name, 'menu-') &&
+                    !str_starts_with($p->name, 'page-')
+            ),
+        ];
+
+        return view('backend.admin.users.roles.index', compact('permissions'));
+    }
+
+    public function edit($id)
+    {
+        $role = Role::with('permissions')->findOrFail($id);
+        $permissions = $this->_getPermission();
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'role' => $role,
+                'permissions' => $permissions,
+                'selected_permissions' => $role->permissions->pluck('id')->toArray()
+            ]
+        ]);
     }
 }
