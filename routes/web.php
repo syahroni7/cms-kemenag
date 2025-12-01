@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\DataPengguna\PermissionController;
 use App\Http\Controllers\Backend\DataPengguna\UserController;
 use App\Http\Controllers\Backend\DataPengguna\RoleController;
 use App\Http\Controllers\Backend\Pengaturan\KontakController;
+use App\Http\Controllers\Backend\Pengaturan\LogoController;
 use App\Http\Controllers\Backend\UnitPengolahController;
 use App\Http\Controllers\Backend\DisposisiListController;
 use App\Http\Controllers\Backend\DisposisiMasterController;
@@ -81,6 +82,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/kontak/store', [KontakController::class, 'store'])->name('pengaturan-kontak.store');
         Route::delete('/kontak/destroy/{id}', [KontakController::class, 'destroy'])->name('pengaturan-kontak.destroy');
         Route::get('/kontak/data', [KontakController::class, 'master'])->name('pengaturan-kontak.data');
+    });
+
+    Route::prefix('pengaturan')->group(function () {
+        Route::get('/logo', [LogoController::class, 'index'])->name('pengaturan-logo.index');
+        Route::post('/logo/store', [LogoController::class, 'store'])->name('pengaturan-logo.store');
+        Route::delete('/logo/destroy/{id}', [LogoController::class, 'destroy'])->name('pengaturan-logo.destroy');
     });
 
 
