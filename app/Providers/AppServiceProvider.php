@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\SocialMedia;
 use App\Models\Menu;
 use App\Helpers\Breadcrumbs;
+use App\Models\Logo;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,6 +41,13 @@ class AppServiceProvider extends ServiceProvider
                 'socialMedias'    => $socialMedias,
                 'breadcrumbs'     => $breadcrumbs,
                 'statusPelayanan' => $statusPelayanan,
+            ]);
+
+            // Ambil logo utama
+            $mainLogo = Logo::where('is_primary', 1)->value('logo');
+
+            $view->with([
+                'mainLogo' => $mainLogo,
             ]);
         });
     }

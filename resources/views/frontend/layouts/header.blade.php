@@ -6,7 +6,7 @@
         <div class="top-row d-flex align-items-center justify-content-between">
             <a href="/" class="logo d-flex align-items-end">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
-                <img src="blogy-assets/img/logo-cms-kemenag.png" alt="Logo Kemenag Lebak">
+                <img src="{{ asset($mainLogo) }}" alt="Logo" class="img-fluid">
                 <!-- <h1 class="sitename">Blogy</h1><span>.</span> -->
             </a>
 
