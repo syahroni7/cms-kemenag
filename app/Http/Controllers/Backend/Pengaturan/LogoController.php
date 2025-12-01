@@ -106,7 +106,6 @@ class LogoController extends Controller
         }
     }
 
-
     public function destroy($id)
     {
         $logo = Logo::findOrFail($id);
