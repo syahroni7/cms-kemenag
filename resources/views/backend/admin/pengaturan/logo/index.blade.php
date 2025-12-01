@@ -45,8 +45,8 @@
                         <table class="table table-bordered display" id="example" style="width:100%; font-size:11pt!important;">
                             <thead>
                                 <tr>
-                                    <th class="text-center" width="40%">Logo</th>
-                                    <th class="text-center" width="40%">Nama Logo</th>
+                                    <th class="text-center" width="30%">Logo</th>
+                                    <th class="text-center" width="50%">Nama Logo</th>
                                     <th class="text-center" width="20%">Aksi</th>
                                 </tr>
                             </thead>
@@ -222,6 +222,37 @@
                     error: function() {
                         Swal.fire('Error!', 'Gagal menghapus data.', 'error');
                     }
+                });
+            }
+        });
+    });
+
+    // ===============================
+    // JADIKAN LOGO UTAMA
+    // ===============================
+    $(document).on("click", ".setPrimaryBtn", function() {
+        let id = $(this).data("id");
+
+        $.ajax({
+            url: "/pengaturan/logo/set-primary/" + id,
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}"
+            },
+            success: function() {
+                table.ajax.reload(null, false);
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: 'Logo utama berhasil diperbarui!'
+                });
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: 'Terjadi kesalahan.'
                 });
             }
         });

@@ -88,6 +88,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/logo', [LogoController::class, 'index'])->name('pengaturan-logo.index');
         Route::post('/logo/store', [LogoController::class, 'store'])->name('pengaturan-logo.store');
         Route::delete('/logo/destroy/{id}', [LogoController::class, 'destroy'])->name('pengaturan-logo.destroy');
+        Route::post('/logo/set-primary/{id}', [LogoController::class, 'setPrimary'])->name('pengaturan-logo.setPrimary');
+
     });
 
 

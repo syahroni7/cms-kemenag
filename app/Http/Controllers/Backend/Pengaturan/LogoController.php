@@ -11,31 +11,69 @@ class LogoController extends Controller
 {
     public function index(Request $request)
     {
-        // === Datatable: return JSON ===
         if ($request->ajax()) {
             $data = Logo::orderBy('id', 'DESC')->get();
 
             return DataTables::of($data)
                 ->addColumn('logo', function ($row) {
-                    if ($row->logo) {
-                        return '<img src="' . asset($row->logo) . '" class="img-preview">';
-                    }
-                    return '-';
+                    return $row->logo
+                        ? '<img src="' . asset($row->logo) . '" class="img-preview">'
+                        : '-';
                 })
                 ->addColumn('logo_raw', function ($row) {
                     return $row->logo ? asset($row->logo) : '';
                 })
-                ->addColumn('action', function ($row) {
-                    return '
-                        <button class="bi-pencil-square btn btn-sm btn-warning" id="editBtn"></button>
-                        <button class="bi-trash-fill btn btn-sm btn-danger" id="destroyBtn" data-id="' . $row->id . '"></button>
-                    ';
+                ->addColumn('status', function ($row) {
+                    return $row->is_primary == 1
+                        ? '<span class="badge bg-success">Logo Utama</span>'
+                        : '<span class="badge bg-secondary">Cadangan</span>';
                 })
-                ->rawColumns(['logo', 'action'])
+                ->addColumn('action', function ($row) {
+
+                    $btn = '<div class="d-flex justify-content-center gap-1">';
+
+                    // =============================
+                    // 1. Badge Logo Utama
+                    // =============================
+                    if ($row->is_primary == 1) {
+                        $btn .= '<span class="badge bg-success mb-1">Logo Utama</span><br>';
+                    }
+
+                    // =============================
+                    // 2. Tombol Jadikan Utama
+                    // =============================
+                    if ($row->is_primary == 0) {
+                        $btn .= '
+            <button class="btn btn-sm btn-info setPrimaryBtn mb-1" data-id="' . $row->id . '">
+                <i class="bi bi-check2-circle"></i> Jadikan Utama
+            </button><br>
+        ';
+                    }
+
+                    // =============================
+                    // 3. Tombol Edit (tidak diubah)
+                    // =============================
+                    $btn .= '
+        <button id="editBtn" class="btn btn-sm btn-warning mb-1" data-id="' . $row->id . '">
+            <i class="bi bi-pencil-square"></i>
+        </button><br>
+    ';
+
+                    // =============================
+                    // 4. Tombol Hapus (tidak diubah)
+                    // =============================
+                    $btn .= '
+        <button id="destroyBtn" data-id="' . $row->id . '" class="btn btn-sm btn-danger">
+            <i class="bi bi-trash"></i>
+        </button>
+    ';
+
+                    return $btn;
+                })
+                ->rawColumns(['logo', 'status', 'action'])
                 ->make(true);
         }
 
-        // === View (pertama kali load) ===
         $title = "Pengaturan Logo";
         $br1 = "Pengaturan";
         $br2 = "Logo";
@@ -43,39 +81,34 @@ class LogoController extends Controller
         return view('backend.admin.pengaturan.logo.index', compact('title', 'br1', 'br2'));
     }
 
+
     public function store(Request $request)
     {
         $id = $request->id;
 
-        $validateRules = ['nama_logo' => 'required|string'];
+        $validate = [
+            'nama_logo' => 'required|string'
+        ];
+
         if (!$id) {
-            // create → logo wajib
-            $validateRules['logo'] = 'required|image|mimes:png,jpg,jpeg,svg|max:2048';
+            $validate['logo'] = 'required|image|mimes:png,jpg,jpeg,svg|max:2048';
         } else {
-            // update → logo opsional
-            $validateRules['logo'] = 'nullable|image|mimes:png,jpg,jpeg,svg|max:2048';
+            $validate['logo'] = 'nullable|image|mimes:png,jpg,jpeg,svg|max:2048';
         }
 
-        $request->validate($validateRules);
+        $request->validate($validate);
 
         if ($id) {
-            // =====================================
             // UPDATE
-            // =====================================
             $logo = Logo::findOrFail($id);
 
-            $data = [
-                'nama_logo' => $request->nama_logo,
-            ];
+            $data = ['nama_logo' => $request->nama_logo];
 
-            // Jika user upload file baru
             if ($request->hasFile('logo')) {
-                // hapus file lama
                 if ($logo->logo && file_exists(public_path($logo->logo))) {
                     unlink(public_path($logo->logo));
                 }
 
-                // simpan file baru
                 $file = $request->file('logo');
                 $filename = time() . '_' . $file->getClientOriginalName();
                 $file->move(public_path('uploads/logo'), $filename);
@@ -83,39 +116,48 @@ class LogoController extends Controller
                 $data['logo'] = 'uploads/logo/' . $filename;
             }
 
-            // update nama dan logo (jika ada)
             $logo->update($data);
 
             return response()->json(['success' => true]);
-        } else {
-            // =====================================
-            // CREATE
-            // =====================================
-            $data = ['nama_logo' => $request->nama_logo];
-
-            if ($request->hasFile('logo')) {
-                $file = $request->file('logo');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('uploads/logo'), $filename);
-                $data['logo'] = 'uploads/logo/' . $filename;
-            }
-
-            Logo::create($data);
-
-            return response()->json(['success' => true]);
         }
+
+        // CREATE
+        $data = ['nama_logo' => $request->nama_logo];
+
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/logo'), $filename);
+            $data['logo'] = 'uploads/logo/' . $filename;
+        }
+
+        Logo::create($data);
+
+        return response()->json(['success' => true]);
     }
+
 
     public function destroy($id)
     {
         $logo = Logo::findOrFail($id);
 
-        // Hapus file fisik
         if ($logo->logo && file_exists(public_path($logo->logo))) {
             unlink(public_path($logo->logo));
         }
 
         $logo->delete();
+
+        return response()->json(['success' => true]);
+    }
+
+
+    public function setPrimary($id)
+    {
+        // SET SEMUA JADI CADANGAN
+        Logo::where('is_primary', 1)->update(['is_primary' => 0]);
+
+        // SET YANG DIPILIH JADI UTAMA
+        Logo::where('id', $id)->update(['is_primary' => 1]);
 
         return response()->json(['success' => true]);
     }
