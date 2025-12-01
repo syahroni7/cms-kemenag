@@ -33,7 +33,7 @@ class RolePermissionSeeder extends Seeder
         $adminInstansi = Role::findByName('admin_instansi');
         $adminInstansi->givePermissionTo([
             // Menu Access
-            'menu-dashboard', 'menu-main', 'menu-disposisi', 'menu-pelayanan', 
+            'menu-dashboard', 'menu-main', 'menu-pengaturan', 'menu-pelayanan', 
             'menu-arsip', 'menu-layanan', 'menu-report',
 
             // Dashboard
@@ -43,7 +43,7 @@ class RolePermissionSeeder extends Seeder
             'page-main-user-data', 'page-main-unit_pengolah',
 
             // Disposisi
-            'page-disposisi-list', 'page-disposisi-master',
+            'page-pengaturan-list', 'page-disposisi-master',
 
             // Pelayanan
             'page-pelayanan-input', 'page-pelayanan-list',
@@ -93,14 +93,14 @@ class RolePermissionSeeder extends Seeder
         $redaktur = Role::findByName('redaktur');
         $redaktur->givePermissionTo([
             // Menu Access
-            'menu-dashboard', 'menu-disposisi', 'menu-pelayanan', 
+            'menu-dashboard', 'menu-pengaturan', 'menu-pelayanan', 
             'menu-arsip', 'menu-layanan', 'menu-report',
 
             // Dashboard
             'page-dashboard',
 
             // Disposisi
-            'page-disposisi-list',
+            'page-pengaturan-list',
 
             // Pelayanan
             'page-pelayanan-list',
@@ -141,14 +141,14 @@ class RolePermissionSeeder extends Seeder
         $editor = Role::findByName('editor');
         $editor->givePermissionTo([
             // Menu Access
-            'menu-dashboard', 'menu-disposisi', 'menu-pelayanan', 
+            'menu-dashboard', 'menu-pengaturan', 'menu-pelayanan', 
             'menu-arsip', 'menu-layanan',
 
             // Dashboard
             'page-dashboard',
 
             // Disposisi
-            'page-disposisi-list',
+            'page-pengaturan-list',
 
             // Pelayanan
             'page-pelayanan-input', 'page-pelayanan-list',

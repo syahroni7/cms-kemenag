@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\PengumumanController;
 use App\Http\Controllers\Backend\DataPengguna\PermissionController;
 use App\Http\Controllers\Backend\DataPengguna\UserController;
 use App\Http\Controllers\Backend\DataPengguna\RoleController;
+use App\Http\Controllers\Backend\Pengaturan\KontakController;
 use App\Http\Controllers\Backend\UnitPengolahController;
 use App\Http\Controllers\Backend\DisposisiListController;
 use App\Http\Controllers\Backend\DisposisiMasterController;
@@ -70,10 +71,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // User Roles
         Route::get('/roles', [RoleController::class, 'index'])->name('user-roles.index');
-    Route::post('/roles/store', [RoleController::class, 'store'])->name('user-roles.store');
-    Route::put('/roles/update/{role}', [RoleController::class, 'update'])->name('user-roles.update'); // Tambah route update
-    Route::delete('/roles/destroy/{role}', [RoleController::class, 'destroy'])->name('user-roles.destroy');
+        Route::post('/roles/store', [RoleController::class, 'store'])->name('user-roles.store');
+        Route::put('/roles/update/{role}', [RoleController::class, 'update'])->name('user-roles.update'); // Tambah route update
+        Route::delete('/roles/destroy/{role}', [RoleController::class, 'destroy'])->name('user-roles.destroy');
     });
+
+    Route::prefix('pengaturan')->group(function () {
+        Route::get('/kontak', [KontakController::class, 'index'])->name('pengaturan-kontak.index');
+        Route::post('/kontak/store', [KontakController::class, 'store'])->name('pengaturan-kontak.store');
+        Route::delete('/kontak/destroy/{id}', [KontakController::class, 'destroy'])->name('pengaturan-kontak.destroy');
+        Route::get('/kontak/data', [KontakController::class, 'master'])->name('pengaturan-kontak.data');
+    });
+
 
     Route::prefix('unit-pengolah')->group(function () {
         Route::get('/', [UnitPengolahController::class, 'index'])->name('unit-pengolah.index');

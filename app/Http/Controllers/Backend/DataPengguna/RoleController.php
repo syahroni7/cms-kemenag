@@ -72,24 +72,31 @@ class RoleController extends Controller
                 ->addColumn('action', function ($role) {
                     $user = Auth::user();
 
+                    // Jika bukan super administrator, tampilkan tanda muted
                     if (!$user->hasRole('super_administrator')) {
                         return '<span class="text-muted">[-]</span>';
                     }
 
+                    // Tombol edit dan hapus dalam btn-group
                     $buttons = '<div class="btn-group" role="group">';
-                    $buttons .= '<button id="editBtn" type="button" class="btn btn-sm btn-warning btn-xs" 
-                            data-bs-toggle="modal" data-bs-target="#fModal" 
-                            data-title="Edit Data Level / Peran User" data-role-id="' . $role->id . '">
-                            <i class="bi bi-pencil-square"></i> Edit
-                            </button>';
-                    $buttons .= '<button id="destroyBtn" type="button" class="btn btn-sm btn-danger btn-xs" 
-                            data-role_id="' . $role->id . '">
-                            <i class="bi bi-trash-fill"></i> Hapus
-                            </button>';
+
+                    // Tombol Edit
+                    $buttons .= '<button id="editBtn" type="button" 
+                    class="bi bi-pencil-square btn btn-sm btn-warning me-1" 
+                    data-bs-toggle="modal" data-bs-target="#fModal" 
+                    data-title="Edit Data Level / Peran User" 
+                    data-role-id="' . $role->id . '"></button>';
+
+                    // Tombol Hapus
+                    $buttons .= '<button id="destroyBtn" type="button" 
+                    class="bi bi-trash-fill btn btn-sm btn-danger" 
+                    data-role_id="' . $role->id . '"></button>';
+
                     $buttons .= '</div>';
 
                     return $buttons;
                 })
+
                 ->rawColumns(['action', 'role_permissions'])
                 ->make(true);
         }

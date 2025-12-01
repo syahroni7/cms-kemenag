@@ -46,10 +46,10 @@
 
 
 
-        {{-- @can('menu-disposisi')
+        {{-- @can('menu-pengaturan')
             <li class="nav-heading">Kelola Disposisi</li>
 
-            @can('page-disposisi-list')
+            @can('page-pengaturan-list')
                 <li class="nav-item">
                     <a class="nav-link pe-0 @if (request()->segment(1) == 'disposisi' && request()->segment(2) == 'list') @else collapsed @endif" href="{{ route('disposisi-list.index', 'baru') }}"><i class="bi bi-list-task"></i>
                         <span style="width: 100% !important">
@@ -70,10 +70,10 @@
 
         @endcan --}}
 
-        @can('menu-disposisi')
+        @can('menu-pengaturan')
             <li class="nav-heading">Kelola Disposisi</li>
 
-            @can('page-disposisi-list')
+            @can('page-pengaturan-list')
                 {{-- Daftar Pelayanan --}}
                 <li class="nav-item">
                     <a class="nav-link @if (request()->segment(1) == 'disposisi' && request()->segment(2) == 'list') @else collapsed @endif" data-bs-target="#disposisi-nav" data-bs-toggle="collapse" href="#" aria-expanded="true">

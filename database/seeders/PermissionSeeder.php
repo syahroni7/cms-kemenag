@@ -13,7 +13,7 @@ class PermissionSeeder extends Seeder
             // ==== MENU ====
             'menu-dashboard',
             'menu-main',
-            'menu-disposisi',
+            'menu-pengaturan',
             'menu-pelayanan',
             'menu-arsip',
             'menu-layanan',
@@ -29,7 +29,7 @@ class PermissionSeeder extends Seeder
             'page-main-unit_pengolah',
 
             // ==== DISPOSISI ====
-            'page-disposisi-list',
+            'page-pengaturan-list',
             'page-disposisi-master',
 
             // ==== PELAYANAN ====

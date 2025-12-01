@@ -9,7 +9,6 @@ class Kontak extends Model
 {
     use HasFactory;
 
-    // Tambahkan baris ini agar Laravel tahu tabelnya 'kontak'
     protected $table = 'kontak';
 
     protected $fillable = [
@@ -17,6 +16,6 @@ class Kontak extends Model
         'alamat',
         'telepon',
         'email',
-        'jam_operasional'
+        'jam_operasional',
     ];
 }
