@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\DataPengguna\UserController;
 use App\Http\Controllers\Backend\DataPengguna\RoleController;
 use App\Http\Controllers\Backend\Pengaturan\KontakController;
 use App\Http\Controllers\Backend\Pengaturan\LogoController;
+use App\Http\Controllers\Backend\Pengaturan\MenuController;
 use App\Http\Controllers\Backend\UnitPengolahController;
 use App\Http\Controllers\Backend\DisposisiListController;
 use App\Http\Controllers\Backend\DisposisiMasterController;
@@ -73,23 +74,50 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // User Roles
         Route::get('/roles', [RoleController::class, 'index'])->name('user-roles.index');
         Route::post('/roles/store', [RoleController::class, 'store'])->name('user-roles.store');
-        Route::put('/roles/update/{role}', [RoleController::class, 'update'])->name('user-roles.update'); // Tambah route update
+        Route::put('/roles/update/{role}', [RoleController::class, 'update'])->name('user-roles.update');
         Route::delete('/roles/destroy/{role}', [RoleController::class, 'destroy'])->name('user-roles.destroy');
     });
 
     Route::prefix('pengaturan')->group(function () {
+        // Kontak
         Route::get('/kontak', [KontakController::class, 'index'])->name('pengaturan-kontak.index');
         Route::post('/kontak/store', [KontakController::class, 'store'])->name('pengaturan-kontak.store');
         Route::delete('/kontak/destroy/{id}', [KontakController::class, 'destroy'])->name('pengaturan-kontak.destroy');
         Route::get('/kontak/data', [KontakController::class, 'master'])->name('pengaturan-kontak.data');
-    });
 
-    Route::prefix('pengaturan')->group(function () {
+        // Navbar
+        Route::get('/menus', [MenuController::class, 'index'])->name('pengaturan-menu.index');
+        Route::post('/menus/store', [MenuController::class, 'store'])->name('pengaturan-menu.store');
+        Route::delete('/menus/destroy/{id}', [MenuController::class, 'destroy'])->name('pengaturan-menu.destroy');
+        Route::get('/menus/sort', [MenuController::class, 'sortPage'])->name('pengaturan-menu.sortPage');
+        Route::post('/menus/sort', [MenuController::class, 'sort'])->name('pengaturan-menu.sort');
+        Route::post('/menus/sort-live', [MenuController::class, 'sortLive'])->name('pengaturan-menu.sort-live');
+        Route::post('/menus/update-order', [MenuController::class, 'updateOrder'])->name('pengaturan-menu.updateOrder');
+
+
+        // Logo
         Route::get('/logo', [LogoController::class, 'index'])->name('pengaturan-logo.index');
         Route::post('/logo/store', [LogoController::class, 'store'])->name('pengaturan-logo.store');
         Route::delete('/logo/destroy/{id}', [LogoController::class, 'destroy'])->name('pengaturan-logo.destroy');
         Route::post('/logo/set-primary/{id}', [LogoController::class, 'setPrimary'])->name('pengaturan-logo.setPrimary');
+    });
 
+    Route::prefix('pengaturan/menu')->name('menus.')->group(function () {
+
+        // LIST (view) + DATATABLES AJAX
+        Route::get('/', [MenuController::class, 'index'])->name('index');
+
+        // CREATE / UPDATE via MODAL AJAX
+        Route::post('/store', [MenuController::class, 'store'])->name('store');
+
+        // DELETE MENU (AJAX)
+        Route::delete('/{id}', [MenuController::class, 'destroy'])->name('destroy');
+
+        // HALAMAN SORT DRAG & DROP
+        Route::get('/sort/page', [MenuController::class, 'sortPage'])->name('sort.page');
+
+        // SIMPAN HASIL DRAG & DROP
+        Route::post('/sort/save', [MenuController::class, 'sort'])->name('sort.save');
     });
 
 

@@ -80,8 +80,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('user-data.index') }}" class="{{ request()->segment(2) == 'data' ? 'active' : '' }}">
-                                <i class="bi bi-circle"></i><span>Header</span>
+                            <a href="{{ route('pengaturan-menu.index') }}" class="{{ request()->segment(2) == 'menus' ? 'active' : '' }}">
+                                <i class="bi bi-circle"></i><span>Navbar</span>
                             </a>
                         </li>
                         <li>
