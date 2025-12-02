@@ -89,35 +89,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/menus', [MenuController::class, 'index'])->name('pengaturan-menu.index');
         Route::post('/menus/store', [MenuController::class, 'store'])->name('pengaturan-menu.store');
         Route::delete('/menus/destroy/{id}', [MenuController::class, 'destroy'])->name('pengaturan-menu.destroy');
-        Route::get('/menus/sort', [MenuController::class, 'sortPage'])->name('pengaturan-menu.sortPage');
         Route::post('/menus/sort', [MenuController::class, 'sort'])->name('pengaturan-menu.sort');
-        Route::post('/menus/sort-live', [MenuController::class, 'sortLive'])->name('pengaturan-menu.sort-live');
+        Route::get('/menus/sort', [MenuController::class, 'sortPage'])->name('pengaturan-menu.sortPage');
         Route::post('/menus/update-order', [MenuController::class, 'updateOrder'])->name('pengaturan-menu.updateOrder');
-
+        
 
         // Logo
         Route::get('/logo', [LogoController::class, 'index'])->name('pengaturan-logo.index');
         Route::post('/logo/store', [LogoController::class, 'store'])->name('pengaturan-logo.store');
         Route::delete('/logo/destroy/{id}', [LogoController::class, 'destroy'])->name('pengaturan-logo.destroy');
         Route::post('/logo/set-primary/{id}', [LogoController::class, 'setPrimary'])->name('pengaturan-logo.setPrimary');
-    });
-
-    Route::prefix('pengaturan/menu')->name('menus.')->group(function () {
-
-        // LIST (view) + DATATABLES AJAX
-        Route::get('/', [MenuController::class, 'index'])->name('index');
-
-        // CREATE / UPDATE via MODAL AJAX
-        Route::post('/store', [MenuController::class, 'store'])->name('store');
-
-        // DELETE MENU (AJAX)
-        Route::delete('/{id}', [MenuController::class, 'destroy'])->name('destroy');
-
-        // HALAMAN SORT DRAG & DROP
-        Route::get('/sort/page', [MenuController::class, 'sortPage'])->name('sort.page');
-
-        // SIMPAN HASIL DRAG & DROP
-        Route::post('/sort/save', [MenuController::class, 'sort'])->name('sort.save');
     });
 
 
